@@ -8,7 +8,7 @@ on:
 env:
   PYTHON_VERSION: "3.10"
   WORKING_DIR: ${{ github.workspace }}/src
-  BENCHMARKS_OUTPUT: ${{ github.workspace }}/benchmarks_output
+  BENCHMARKS_OUTPUT: ${{ github.workspace }}/results
 
 jobs:
   benchmark-pr:
