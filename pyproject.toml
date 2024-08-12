@@ -1,0 +1,7 @@
+[project]
+name = "outlines_benchmark"
+version = "0.1"
+authors = [{"name" = "The Outlines developers"}]
+description = "A benchmarking suite for structured generation libraries."
+requires-python = ">=3.10"
+dependencies = ["outlines==0.0.46", "transformers==4.44.0", "torch==2.4.0"]
