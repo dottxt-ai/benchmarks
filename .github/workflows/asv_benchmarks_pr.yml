@@ -8,7 +8,7 @@ on:
 env:
   PYTHON_VERSION: "3.10"
   WORKING_DIR: ${{ github.workspace }}/src
-  BENCHMARKS_OUTPUT: ${{ github.workspace }}/benchmarks_output
+  BENCHMARKS_OUTPUT: ${{ github.workspace }}/results
 
 jobs:
   benchmark-pr:
@@ -36,8 +36,11 @@ jobs:
       run: asv machine --machine gh-runner --yes
 
     - name: Run Benchmarks - `PR HEAD` vs `main`
+      env:
+        HF_TOKEN: ${{ vars.HF_TOKEN }}
       run: |
         # prepare main branch for comparison
+        echo $HF_TOKEN
         git remote add upstream https://github.com/${{ github.repository }}.git
         git fetch upstream main
 

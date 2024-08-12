@@ -7,7 +7,7 @@
 	"HEAD"
     ],
     "build_command": [
-        "python -mpip .",
+        "python -mpip install .",
         "PIP_NO_BUILD_ISOLATION=false python -mpip wheel --no-deps --no-index -w {build_cache_dir} {build_dir}",
     ],
     "environment_type": "virtualenv",
