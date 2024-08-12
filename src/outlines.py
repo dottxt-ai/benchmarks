@@ -11,7 +11,7 @@ models = [
     "google/gemma-2-2b-it",  # 256,128 tokens vocabulary
 ]
 
-case = (r"\d{3}-\d{2}-\d{4}", "203-22-1234")
+case = [(r"\d{3}-\d{2}-\d{4}", "203-22-1234")]
 
 
 class Outlines:
@@ -20,15 +20,25 @@ class Outlines:
     timeout = 600
 
     def setup(self, model, _):
+        """Set up the benchmark.
+
+        We JIT-compile Numba functions and convert the vocabulary
+        during set up as this only need to be ever done once.
+
+        """
         self.tokenizer = AutoTokenizer.from_pretrained(
             model, clean_up_tokenization_spaces=True
         )
         self.tokenizer = TransformerTokenizer(self.tokenizer)
-        # The purpose of the following line is to force the JIT-compilation
-        # of Numba functions, and the type conversion.
-        RegexGuide("a", self.tokenizer)
+        RegexGuide("a", self.tokenizer)  # JIT-compile and convert the vocabulary
 
     def time_outlines(self, _, regex):
+        """Measure generation time with Outlines.
+
+        Outlines' generation time is split between compiling an index for each
+        regular expression, and walking this index while generating tokens.
+
+        """
         regex_string, regex_example = regex
         regex_example_tokens = self.tokenizer.encode(regex_example)[0][0]
         guide = RegexGuide(regex_string, self.tokenizer)
