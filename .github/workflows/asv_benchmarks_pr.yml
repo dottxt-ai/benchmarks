@@ -37,7 +37,7 @@ jobs:
 
     - name: Run Benchmarks - `PR HEAD` vs `main`
       env:
-        HF_TOKEN: ${{ vars.HF_TOKEN }}
+        HF_TOKEN: ${{ secrets.HF_TOKEN }}
       run: |
         # prepare main branch for comparison
         echo $HF_TOKEN
