@@ -15,10 +15,6 @@ case = [
     (r"\d{3}-\d{2}-\d{4}", "203-22-1234"),
     (
         r"(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?",
-        "https://www.dottxt.co",
-    ),
-    (
-        r"(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?",
         "https://github.com/outlines-dev/outlines",
     ),
 ]
