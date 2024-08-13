@@ -33,7 +33,7 @@ jobs:
     - name: Create ASV machine config file
       run: asv machine --machine gh-runner --yes
 
-    - name: Run Benchmarks - `PR HEAD` vs `main`
+    - name: Run Benchmarks - `main`
       env:
         HF_TOKEN: ${{ secrets.HF_TOKEN }}
       run: |
