@@ -2,4 +2,5 @@
 
 Benchmark structured generation libraries:
 
-- [Oultines](https://github.com/outlines-dev/outlines)
+- [Outlines](https://github.com/outlines-dev/outlines)
+- [lm-format-enforcer](https://github.com/noamgat/lm-format-enforcer)

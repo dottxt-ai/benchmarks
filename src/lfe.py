@@ -12,7 +12,17 @@ models = [
     "google/gemma-2-2b-it",  # 256,128 tokens vocabulary
 ]
 
-case = [(r"\d{3}-\d{2}-\d{4}", "203-22-1234")]
+case = [
+    (r"\d{3}-\d{2}-\d{4}", "203-22-1234"),
+    (
+        r"(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?",
+        "https://www.dottxt.co",
+    ),
+    (
+        r"(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?",
+        "https://github.com/outlines-dev/outlines",
+    ),
+]
 
 
 class LMFormatEnforcer:
