@@ -18,6 +18,10 @@ case = [
         r"(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?",
         "https://github.com/outlines-dev/outlines",
     ),
+    (
+        r"A: [\w \.\*\-=\+,\?/]{10,30}\. The answer is [1-9][0-9]{0,9}\.",
+        "A: Some thoughts before answering. The answer is 42.",
+    ),
 ]
 
 
