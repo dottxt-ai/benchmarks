@@ -83,7 +83,42 @@ json_case = [
             "type": "object",
         },
         """{'name': 'Super Warrior', 'age': 26,  'armor': 'leather', 'armor': 10}""",
-    )
+    ),
+    (
+        {
+            "$schema": "http://json-schema.org/draft-04/schema#",
+            "title": "Schema for a recording",
+            "type": "object",
+            "definitions": {
+                "artist": {
+                    "type": "object",
+                    "properties": {
+                        "id": {"type": "number"},
+                        "name": {"type": "string"},
+                        "functions": {"type": "array", "items": {"type": "string"}},
+                    },
+                    "required": ["id", "name", "functions"],
+                }
+            },
+            "properties": {
+                "id": {"type": "number"},
+                "work": {
+                    "type": "object",
+                    "properties": {
+                        "id": {"type": "number"},
+                        "name": {"type": "string"},
+                        "composer": {"$ref": "#/definitions/artist"},
+                    },
+                },
+                "recording_artists": {
+                    "type": "array",
+                    "items": {"$ref": "#/definitions/artist"},
+                },
+            },
+            "required": ["id", "work", "recording_artists"],
+        },
+        """{'id': 999, 'work': {'id': 1, 'name': 'Strasbourg Saint-Denis', 'composer': 'Roy Hargrove'}, 'recording_artists': [{'id': 2, 'name': 'Roy Hargrove', 'functions': ['Trumpet', 'Singing']}]}""",
+    ),
 ]
 
 
