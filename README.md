@@ -1,4 +1,9 @@
-# Benchmarks
+<div align="center" style="margin-bottom: 1em;">
+
+<img src="./docs/assets/images/logo.png" alt="Outlines-core Logo" width=500></img>
+
+*Benchmark structured generation libraries.*
+</div>
 
 Benchmark suite for the following structured generation libraries:
 
