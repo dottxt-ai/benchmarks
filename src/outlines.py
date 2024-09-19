@@ -24,6 +24,10 @@ regex_case = [
         r"A: [\w \.\*\-=\+,\?/]{10,50}\. The answer is [1-9][0-9]{0,9}\.",
         "A: Some thoughts before answering. The answer is 42.",
     ),
+    (
+        "(0|[1-9][0-9]*)|true|false|([a-zA-Z_][a-zA-Z_0-9]*)",
+        "AVeryLongStringtoTest1234",
+    ),
 ]
 
 
