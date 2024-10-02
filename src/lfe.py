@@ -26,6 +26,7 @@ regex_case = [
         "(0|[1-9][0-9]*)|true|false|([a-zA-Z_][a-zA-Z_0-9]*)",
         "AVeryLongStringtoTest1234",
     ),
+    (r"\+[1-9]\d{1,14}", "1234567891234"),
 ]
 
 
