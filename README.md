@@ -7,7 +7,8 @@
 
 Benchmark suite for the following structured generation libraries:
 
-- [Outlines](https://github.com/outlines-dev/outlines)
+- [outlines (Numba)](https://github.com/dottxt-ai/outlines)
+- [outlines-core (Rust)](https://github.com/dottxt-ai/outlines-core)
 - [lm-format-enforcer](https://github.com/noamgat/lm-format-enforcer)
 
 
