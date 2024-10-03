@@ -1,6 +1,7 @@
 """Benchmark the Outlines library."""
 import json
 
+import outlines.caching as caching
 from outlines.fsm.guide import RegexGuide
 from outlines.fsm.json_schema import build_regex_from_schema
 from outlines.models.transformers import TransformerTokenizer
@@ -34,7 +35,7 @@ regex_case = [
 class OutlinesRegex:
     params = [models, regex_case]
     param_names = ["model", "regex"]
-    timeout = 600
+    timeout = 1200
 
     def setup(self, model, _):
         """Set up the benchmark.
@@ -56,6 +57,8 @@ class OutlinesRegex:
         regular expression, and walking this index while generating tokens.
 
         """
+        caching.clear_cache()
+
         regex_string, regex_example = regex
         regex_example_tokens = self.tokenizer.encode(regex_example)[0][0]
         guide = RegexGuide(regex_string, self.tokenizer)
@@ -129,7 +132,7 @@ json_case = [
 class OutlinesJsonSchema:
     params = [models, json_case]
     param_names = ["model", "json"]
-    timeout = 600
+    timeout = 1200
 
     def setup(self, model, _):
         """Set up the benchmark.
