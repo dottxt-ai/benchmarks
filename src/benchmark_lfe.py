@@ -6,10 +6,10 @@ from lmformatenforcer.integrations.transformers import (
 from transformers import AutoTokenizer
 
 models = [
-    "meta-llama/Llama-2-7b-hf",  # 32,000 tokens vocabulary
+    "NousResearch/Nous-Hermes-llama-2-7b",  # 32,000 tokens vocabulary
     "gpt2",  # 50,257 tokens vocabulary
-    "meta-llama/Meta-Llama-3.1-8B-Instruct",  # 128,256 tokens vocabulary
-    "google/gemma-2-2b-it",  # 256,128 tokens vocabulary
+    "NousResearch/Hermes-3-Llama-3.1-8B",  # 128,256 tokens vocabulary
+    "unsloth/gemma-2-2b-it-bnb-4bit",  # 256,128 tokens vocabulary
 ]
 
 regex_case = [
