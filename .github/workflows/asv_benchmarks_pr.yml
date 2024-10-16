@@ -42,7 +42,7 @@ jobs:
         git fetch upstream main
 
         # Run benchmarks, allow errors, they will be caught in the next step
-        asv continuous upstream/main HEAD \
+        asv continuous --quick upstream/main HEAD \
             --no-stats --interleave-rounds -a repeat=3 || true
 
     - name: BENCHMARK RESULTS
