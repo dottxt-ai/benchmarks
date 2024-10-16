@@ -52,3 +52,9 @@ jobs:
           echo "Performance degradation detected!"
           exit 1
         fi
+
+    - name: Upload Benchmark Results Folder
+      uses: actions/upload-artifact@v3
+      with:
+        name: benchmark-results
+        path: ${{ env.BENCHMARKS_OUTPUT }}
