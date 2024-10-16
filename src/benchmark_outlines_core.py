@@ -1,78 +1,54 @@
-import json
-
-from outlines_core.fsm.guide import RegexGuide
+from outlines.caching import cache
+from outlines_core.fsm.guide import RegexGuide, create_states_mapping
 from outlines_core.fsm.json_schema import build_regex_from_schema
-from outlines_core.models.transformers import TransformerTokenizer
-from transformers import AutoTokenizer
 
-from .data import json_cases, models, regex_cases
+from .benchmark_outlines import (
+    OutlinesJsonSchema,
+    OutlinesJsonSchemaRunTime,
+    OutlinesRegex,
+    OutlinesRegexRunTime,
+)
 
 
-class OutlinesCoreRegex:
-    params = [models, regex_cases]
-    param_names = ["model", "regex"]
-    timeout = 600
+@cache()
+def cached_create_states_mapping(regex_string, tokenizer, *args, **kwargs):
+    return create_states_mapping(regex_string, tokenizer, *args, **kwargs)
 
-    def setup(self, model, _):
-        """Set up the benchmark.
 
-        We JIT-compile Numba functions and convert the vocabulary
-        during set up as this only need to be ever done once.
+class CachedOutlinesCoreRegexGuide(RegexGuide):
+    """
+    Guide to generate text in the language of a regular expression.
+    CoreRegexGuide with outlines cache
+    """
 
-        """
-        self.tokenizer = AutoTokenizer.from_pretrained(
-            model, clean_up_tokenization_spaces=True
+    @classmethod
+    def from_regex(
+        cls,
+        regex_string: str,
+        tokenizer,
+        **kwargs,
+    ):
+        return RegexGuide.from_regex(
+            regex_string,
+            tokenizer,
+            _create_states_mapping=cached_create_states_mapping,
+            **kwargs,
         )
-        self.tokenizer = TransformerTokenizer(self.tokenizer)
-
-    def time_outlines_core(self, _, regex):
-        """Measure generation time with Outlines.
-
-        Outlines' generation time is split between compiling an index for each
-        regular expression, and walking this index while generating tokens.
-
-        """
-        regex_string, regex_example = regex["regex"], regex["example"]
-        regex_example_tokens = self.tokenizer.encode(regex_example)[0][0]
-        guide = RegexGuide(regex_string, self.tokenizer)
-
-        state = 0
-        for token in regex_example_tokens:
-            _ = guide.get_next_instruction(state)
-            state = guide.get_next_state(state, token)
 
 
-class OutlinesCoreJsonSchema:
-    params = [models, json_cases]
-    param_names = ["model", "json"]
-    timeout = 600
+class OutlinesCoreRegex(OutlinesRegex):
+    guide_class = CachedOutlinesCoreRegexGuide.from_regex
 
-    def setup(self, model, _):
-        """Set up the benchmark.
 
-        We JIT-compile Numba functions and convert the vocabulary
-        during set up as this only need to be ever done once.
+class OutlinesCoreRegexRunTime(OutlinesRegexRunTime):
+    guide_class = CachedOutlinesCoreRegexGuide.from_regex
 
-        """
-        self.tokenizer = AutoTokenizer.from_pretrained(
-            model, clean_up_tokenization_spaces=True
-        )
-        self.tokenizer = TransformerTokenizer(self.tokenizer)
 
-    def time_outlines_core(self, _, json_case):
-        """Measure generation time with Outlines.
+class OutlinesCoreJsonSchema(OutlinesJsonSchema):
+    guide_class = CachedOutlinesCoreRegexGuide.from_regex
+    json_from_regex_fn = lambda self, schema: build_regex_from_schema(schema)
 
-        Outlines' generation time is split between compiling an index for each
-        regular expression, and walking this index while generating tokens.
 
-        """
-        json_string, json_example = json_case["schema"], json_case["example"]
-        json_example_tokens = self.tokenizer.encode(json_example)[0][0]
-
-        regex_string = build_regex_from_schema(json.dumps(json_string))
-        guide = RegexGuide(regex_string, self.tokenizer)
-
-        state = 0
-        for token in json_example_tokens:
-            _ = guide.get_next_instruction(state)
-            state = guide.get_next_state(state, token)
+class OutlinesCoreJsonSchemaRunTime(OutlinesJsonSchemaRunTime):
+    guide_class = CachedOutlinesCoreRegexGuide.from_regex
+    json_from_regex_fn = lambda self, schema: build_regex_from_schema(schema)
