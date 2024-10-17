@@ -42,7 +42,7 @@ jobs:
         git fetch upstream main
 
         # Run benchmarks, allow errors, they will be caught in the next step
-        asv continuous upstream/main HEAD \
+        asv continuous --quick upstream/main HEAD \
             --no-stats --interleave-rounds -a repeat=3 || true
 
     - name: BENCHMARK RESULTS
@@ -52,3 +52,9 @@ jobs:
           echo "Performance degradation detected!"
           exit 1
         fi
+
+    - name: Upload Benchmark Results Folder
+      uses: actions/upload-artifact@v3
+      with:
+        name: benchmark-results
+        path: ${{ env.BENCHMARKS_OUTPUT }}
