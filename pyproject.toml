@@ -7,7 +7,7 @@ requires-python = ">=3.10"
 dependencies = [
     "lm-format-enforcer==0.10.7",
     "outlines==0.0.46",
-    "outlines-core",
+    "outlines-core>=0.1.14",
     "torch==2.4.0",
     "transformers==4.44.0",
 ]
