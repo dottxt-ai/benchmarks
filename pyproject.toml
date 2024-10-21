@@ -5,7 +5,7 @@ authors = [{"name" = "The Outlines developers"}]
 description = "A benchmarking suite for structured generation libraries."
 requires-python = ">=3.10"
 dependencies = [
-    "lm-format-enforcer==0.10.7",
+    "lm-format-enforcer",
     "outlines==0.0.46",
     "outlines-core",
     "torch==2.4.0",
