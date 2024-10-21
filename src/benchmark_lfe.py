@@ -42,11 +42,11 @@ class LMFormatEnforcerRegex(LMFormatEnforcerBenchmark):
         tokenizer_data = build_token_enforcer_tokenizer_data(self.tokenizer)
         return TokenEnforcer(tokenizer_data, parser)
 
-    def time_lfe_total(self, _, regex_name):
+    def time_total(self, _, regex_name):
         enforcer = self._get_enforcer(regex_name)
         self._exhaust_samples(enforcer)
 
-    def time_lfe_first_token(self, _, regex_name):
+    def time_first_token(self, _, regex_name):
         enforcer = self._get_enforcer(regex_name)
         self._get_first_token(enforcer)
 
@@ -68,7 +68,7 @@ class LMFormatEnforcerRegexRunTime(LMFormatEnforcerBenchmark):
         self.enforcer = self._get_enforcer(regex_name)
         self._get_first_token(self.enforcer)
 
-    def time_lfe_runtime(self, *args):
+    def time_runtime(self, *args):
         self._exhaust_samples(self.enforcer)
 
 
@@ -87,11 +87,11 @@ class LMFormatEnforcerJsonSchema(LMFormatEnforcerBenchmark):
         tokenizer_data = build_token_enforcer_tokenizer_data(self.tokenizer)
         return TokenEnforcer(tokenizer_data, parser)
 
-    def time_lfe_total(self, _, json_schema_name):
+    def time_total(self, _, json_schema_name):
         enforcer = self._get_enforcer(json_schema_name)
         self._exhaust_samples(enforcer)
 
-    def time_lfe_first_token(self, _, json_schema_name):
+    def time_first_token(self, _, json_schema_name):
         enforcer = self._get_enforcer(json_schema_name)
         self._get_first_token(enforcer)
 
@@ -113,5 +113,5 @@ class LMFormatEnforcerJsonSchemaRunTime(LMFormatEnforcerBenchmark):
         self.enforcer = self._get_enforcer(json_schema_name)
         self._get_first_token(self.enforcer)
 
-    def time_lfe_runtime(self, *args):
+    def time_runtime(self, *args):
         self._exhaust_samples(self.enforcer)

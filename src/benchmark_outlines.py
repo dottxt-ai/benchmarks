@@ -60,12 +60,12 @@ class OutlinesRegex(OutlinesBenchmark):
         samples = regex_cases[regex_name]["samples"]
         self.do_setup(model, samples)
 
-    def time_outlines_total(self, _, regex_name):
+    def time_total(self, _, regex_name):
         regex_string = regex_cases[regex_name]["regex"]
         guide = self.guide_class(regex_string, self.tokenizer)
         self._exhaust_samples(guide)
 
-    def time_outlines_first_token(self, _, regex_name):
+    def time_first_token(self, _, regex_name):
         regex_string = regex_cases[regex_name]["regex"]
         guide = self.guide_class(regex_string, self.tokenizer)
         self._get_first_token(guide)
@@ -87,7 +87,7 @@ class OutlinesRegexRunTime(OutlinesBenchmark):
         self.guide = self.guide_class(regex_string, self.tokenizer)
         self._get_first_token(self.guide)
 
-    def time_outlines_runtime(self, *args):
+    def time_runtime(self, *args):
         self._exhaust_samples(self.guide)
 
 
@@ -102,13 +102,13 @@ class OutlinesJsonSchema(OutlinesBenchmark):
         samples = json_cases[json_schema_name]["samples"]
         self.do_setup(model, samples)
 
-    def time_outlines_total(self, _, json_schema_name):
+    def time_total(self, _, json_schema_name):
         json_string = json_cases[json_schema_name]["schema"]
         regex_string = self.json_from_regex_fn(json.dumps(json_string))
         guide = self.guide_class(regex_string, self.tokenizer)
         self._exhaust_samples(guide)
 
-    def time_outlines_first_token(self, _, json_schema_name):
+    def time_first_token(self, _, json_schema_name):
         json_string = json_cases[json_schema_name]["schema"]
         regex_string = self.json_from_regex_fn(json.dumps(json_string))
         guide = self.guide_class(regex_string, self.tokenizer)
@@ -134,5 +134,5 @@ class OutlinesJsonSchemaRunTime(OutlinesBenchmark):
         self.guide = self.guide_class(regex_string, self.tokenizer)
         self._get_first_token(self.guide)
 
-    def time_outlines_runtime(self, *args):
+    def time_runtime(self, *args):
         self._exhaust_samples(self.guide)
